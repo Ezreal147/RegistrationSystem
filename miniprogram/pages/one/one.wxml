@@ -1,0 +1,92 @@
+<!--page/one/index.wxml-->
+<!-- 右边菜单区域 -->
+<view class="page menu">
+  <view class="time">
+    {{showDate}}
+  </view>
+  <view class="richtext">
+    <rich-text>
+      <strong>选择想要预约的时间段</strong>
+    </rich-text>
+  </view>
+  <block wx:for="{{timelist}}" wx:key="uniquekey">
+    <block wx:if="{{item.remain>0}}">
+      <view class=" container " style="margin-top:{{250+index*250}}rpx ">
+        <view class="timebtn " style="border: 1rpx solid rgb(255, 153, 0);color: rgb(255, 153, 0);" bindtap="ontimetap{{index}}">{{item.time}}</view>
+        <text class="tips" style="color: rgb(255, 153, 0);">剩余名额:{{item.remain}}</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view class=" container " style="margin-top:{{250+index*250}}rpx ">
+        <view class="timebtn " style="border: 1rpx solid gray;color: gray;" bindtap="ontimetap{{index}}">{{item.time}}</view>
+        <text class="tips" style="color: gray;">剩余名额:{{item.remain}}</text>
+      </view>
+    </block>
+  </block>
+</view>
+<!--  -->
+
+<!-- 主界面可见区域 -->
+<view class="page page-top {{open ? 'c-state1' : ''}}" bindtap="onpagetap">
+  <!-- 医生头像区域 -->
+  <view class="page-head">
+    <view id='circle'>
+    </view>
+    <text class="intro">很厉害的医生</text>
+  </view>
+
+  <!-- 周几显示区域 -->
+  <view class="date">
+    <block wx:for="{{buttonAttr}}" wx:key="uniquekey">
+      <view wx:if="{{index==0}}" class="day" style="margin-left:15rpx;color:{{item.textcoloru}}">
+        <text>{{time[index].weekday}}</text>
+      </view>
+      <view wx:else class="day" style="color:{{item.textcoloru}}">
+        <text>{{time[index].weekday}}</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 数字日期显示区域 -->
+  <view class="date" style="margin-top:390rpx;padding-top:20rpx;padding-bottom:20rpx">
+    <block wx:for="{{buttonAttr}}" wx:key="uniquekey">
+      <view wx:if="{{index==0}}" class="daycircle" bindtap="ondaytap0" style="margin-left:15rpx;background-color:{{item.color}};color:{{item.textcolord}}">
+        <text>{{time[index].day}}</text>
+      </view>
+      <view wx:else class="daycircle" bindtap="ondaytap{{index}}" style="background-color:{{item.color}};color:{{item.textcolord}}">
+        <text>{{time[index].day}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="order">
+    <view class="cancel">
+      <view class="cancelButton" style="float:right" wx:if="{{order}}" bindtap="onCancel">取消预约</view>
+      <view class="cancelButton" style="margin-left:30rpx" wx:if="{{isAdmin}}" bindtap="gotoBackgroud" >进入后台</view>
+    </view>
+    <view class="orderdetail">
+    <block wx:if="{{order}}">
+      <view class="item">
+        <view class="title">姓名：</view>
+        <view class="detail">{{orderDetail.name}}</view>
+      </view>
+      <view class="item">
+        <view class="title">手机号：</view>
+        <view class="detail">{{orderDetail.phone}}</view>
+      </view>
+      <view class="item">
+        <view class="title">日期：</view>
+        <view class="detail">{{orderDetail.day}}</view>
+      </view>
+      <view class="item">
+        <view class="title">时间：</view>
+        <view class="detail">{{orderDetail.time}}</view>
+      </view>
+      </block>
+    </view>
+    <view class="ready">
+      <view class="noname" style="margin-left: 30rpx;">可用预约：</view>
+      <view wx:if="{{!order}}" class="noname">无</view>
+    </view>
+  </view>
+</view>

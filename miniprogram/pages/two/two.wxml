@@ -1,0 +1,43 @@
+<!--miniprogram/pages/two/two.wxml-->
+<page>
+<view class="head">
+<image class="head_pic" src='/images/top_img.png'></image>
+</view>
+
+
+<view class="detail" style="margin-top:270rpx">
+<image class="pic" src='/images/date.png'></image>
+<text class="title">就诊日期</text>
+<text class="value">{{clinicDate}}</text>
+</view>
+<view class="detail" style="margin-top:366rpx">
+<image class="pic" src='/images/time.png'></image>
+<text class="title">候诊时间</text>
+<text class="value">{{clinicTime}}</text>
+</view>
+<view class="detail" style="margin-top:462rpx">
+<image class="pic" src='/images/room.png'></image>
+<text class="title">就诊地点</text>
+<text class="value">{{clinicPlace}}</text>
+</view>
+<view class="detail" style="margin-top:568rpx">
+<image class="pic" src='/images/portrait.png'></image>
+<text class="title">就诊人</text>
+<text class="value" style="color:rgb(255, 153, 0);">></text>
+<view class="value" style="color:rgb(255, 153, 0);">
+  <picker bindchange="bindPickerChange" value="0" range="{{showname}}">
+  {{patient}}
+  </picker>
+</view>
+</view>
+<view class="detail" style="margin-top:664rpx">
+<image class="pic" src='/images/tele.png'></image>
+<text class="title">手机号</text>
+<text class="value">{{phoneNumber}}</text>
+</view>
+<view class="tips" style="margin-top:750rpx;right:20rpx">{{error}}</view>
+<view class="tips" style="bottom:150rpx;margin-left: 20rpx;">请仔细检查就诊信息是否正确！</view>
+<view class="down">
+<button class="surebtn" bindtap="onSure">确定预约</button>
+</view>
+</page>

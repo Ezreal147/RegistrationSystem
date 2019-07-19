@@ -1,0 +1,99 @@
+/**app.wxss**/
+page {
+  height: 100%;
+  font-family: 'PingFang SC', 'Helvetica Neue', Helvetica, 'Droid Sans Fallback', 'Microsoft Yahei', sans-serif;
+}
+
+.page-head{
+  height: 100%;
+  width: 100%;
+  position: fixed; 
+  background-color:#f6f6f6;
+  z-index: 1;
+}
+.page-top{
+  height: 100%;
+  position: fixed;
+  width: 100%;
+  z-index: 0;
+  transition: all 0.4s ease; 
+  -webkit-transition: all 0.4s ease;
+  transform: rotate(0deg) scale(1) translate(0%,0%); 
+  -webkit-transform: rotate(0deg) scale(1) translate;
+}
+.c-state1{
+  transform: rotate(0deg) scale(1) translate(-75%,0%); 
+  -webkit-transform: rotate(0deg) scale(1) translate(-75%,0%); 
+}
+.c-state2{
+  transform: rotate(0deg) scale(.8) translate(75%,0%); 
+  -webkit-transform: rotate(0deg) scale(.8) translate(75%,0%); 
+}
+.menu{
+  background-color: white;
+  position: absolute;
+  height: 100%;
+  width: 75%;
+  margin-left: 25%;
+  z-index: 0;
+
+}
+#circle {
+  width: 180rpx;
+  height: 180rpx;
+  background: gainsboro;
+  -moz-border-radius: 90rpx;
+  -webkit-border-radius: 90rpx;
+  border-radius: 90rpx;
+  position: absolute;
+  margin-left: 285rpx;
+  margin-top: 10px;
+  z-index: 1;
+ }
+
+ .intro{
+   color: black;
+   position: absolute;
+   width: 100%;
+   margin-top: 210rpx;
+   font-size: 30rpx;
+   text-align: center;
+   z-index: 1;
+ }
+
+ .date{
+   width: 100%;
+   padding-top: 10rpx;
+   padding-bottom: 10rpx;
+   position: absolute;
+   margin-top: 320rpx;
+   background-color: white;
+   z-index: 1;
+ }
+ .day{
+   float: left;
+   /* padding-right: 65rpx; */
+   width: 90rpx;
+   text-align: center;
+   color: gainsboro;
+   font-size: 35rpx;
+   z-index: 1;
+ }
+
+ .daycircle {
+  float: left;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 45rpx;
+  font-size: 35rpx;
+  color: gainsboro;
+  line-height: 90rpx;
+  text-align: center;
+  background-color: white;
+  z-index: 1;
+  /* (255, 153, 0) */
+ }
+
+/*头像*/
+
+

@@ -1,0 +1,27 @@
+<view class="table">
+
+<view class='th tr'>
+<view class='td'>房间名</view>
+<view class='td'>床位数</view>
+<view class='td'>开放</view>
+</view>
+<view class='tr' wx:key="" wx:for="{{beds}}" bindlongpress='delete_bed' data-index="{{index}}">
+<view class='td'>{{item.name}}</view>
+<input bindblur="changeBedNum" class='td' value="{{item.number}}"></input>
+<switch checked="{{item.open}}" data-index="{{index}}" bindchange='bed_change'></switch>
+</view>
+
+<button bindtap='addBed'>添加床位</button>
+<modal
+hidden = "{{bed_hiddenmodalput}}"
+title = "添加床位"
+confirm - text = "确定"
+cancel - text = "取消"
+bindcancel = "bed_cancel"
+bindconfirm = "bed_confirm">
+<view>
+<input type = 'text' style="width:100%;padding:5rpx 0;" placeholder = "房间名" auto - focus bindblur='name_change'/> 
+<input type = 'number' style="width:100%;padding:5rpx 0;" placeholder = "床位数" bindblur='number_change' /> 
+</view>
+</modal>
+</view>

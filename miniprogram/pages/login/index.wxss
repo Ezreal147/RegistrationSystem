@@ -1,0 +1,38 @@
+#pre_head{
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: 15rpx;
+
+}
+.parent_view{
+  margin-top: 150rpx;
+}
+label{
+ float: left;
+ height: 50rpx;
+ white-space: pre;
+ text-align: center;
+  font-size: 1.1em;
+  margin-left: 10%;
+}
+input{
+   height: 50rpx;
+  float: left; 
+  width: 45%;
+  border: 1px solid #ccc;
+  border-radius: 3px; /*css3属性IE不支持*/
+  padding:2px; 
+}
+button{
+background-color: #6699FF;
+color: white;
+margin-top: 50px;
+width: 150px;
+
+}
+#check_group
+{
+  font-size: 0.8em;
+  margin-left: 10%;
+  margin-top: 10rpx;
+}

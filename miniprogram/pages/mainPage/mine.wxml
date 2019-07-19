@@ -1,0 +1,65 @@
+<view class="hr">
+</view>
+
+<view class='item'>
+  <view class="title">姓名</view>
+  <view class="detail2">
+    <text>{{username}}</text>
+  </view>
+</view>
+<view class="mine_line"></view>
+
+<view class='item'>
+  <view class="title">手机号码</view>
+  <view class="detail2">
+    <text>{{phonenumber}}</text>
+  </view>
+</view>
+<view class="mine_line"></view>
+<view class='item'>
+  <view class="title">剩余可预约次数</view>
+  <view class="detail2">
+    <text>{{bookedNumber}}</text>
+  </view>
+</view>
+<view class="hr"></view>
+<view class="mine_line"></view>
+<view class="item" bindtap='apply_number'>
+  <view class="title">申请次数</view>
+  <view class="detail2">
+    <text> ></text>
+  </view>
+</view>
+<view class="mine_line"></view>
+
+<view class="item" bindtap='manage_familly'>
+  <view class="title">家属管理</view>
+  <view class="detail2">
+    <text> ></text>
+  </view>
+</view>
+<modal hidden="{{hiddenmodalput}}" title="申请预约次数" confirm - text="提交" cancel - text="取消" bindcancel="cancel" bindconfirm="confirm">
+  <view>
+    <input type='number' placeholder="请输入次数：" bindblur='apply_number_change' />
+  </view>
+</modal>
+<view class="hr"></view>
+<view class="mine_line"></view>
+<view style="font-size:20px;width:100%;height:40rpx;line-height:40rpx;text-align:center;padding:10rpx 0;">预约管理</view>
+<view style="font-size:12px;width:100%;height:20rpx;line-height:20rpx;text-align:center;padding:5rpx 0;color:red">单击查看床位信息，长按取消预约</view>
+<view class="up">
+  <view class="title-item">姓名</view>
+  <view class="title-item">日期</view>
+  <view class="title-item">时间</view>
+</view>
+<view style="width:100%;height:100%">
+  <scroll-view scroll-y="true" style="height:40%;margin-top:10rpx">
+      <view class="aa" wx:for="{{userful}}" wx:key="">
+        <view class="orderDetail" bindlongpress="deleteOrder" data-name="{{item.name}}" data-date="{{item.date}}" data-time="{{item.time}}">
+          <view class="order-item">{{item.name}}</view>
+          <view class="order-item">{{item.date}}</view>
+          <view class="order-item">{{item.time}}</view>
+        </view>
+      </view>
+  </scroll-view>
+</view>

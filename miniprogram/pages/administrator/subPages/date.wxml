@@ -1,0 +1,87 @@
+<scroll-view scroll-y="true" style="height:100%">
+<view>
+  <text class='sub_head'>修改默认时间</text>
+  <view style='flex-direction: row'>
+    <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindDefaultTime1Change">
+      <view class="picker">
+        默认时间一: {{Default_time1}}
+      </view>
+    </picker>
+    <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindDefaultTime2Change">
+      <view class="picker">
+        默认时间二: {{Default_time2}}
+      </view>
+    </picker>
+    <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindDefaultTime3Change">
+      <view class="picker">
+        默认时间三: {{Default_time3}}
+      </view>
+    </picker>
+    <text class='sub_head'>修改默认床位数</text>
+    <view class="picker" style="display:flex;flex-direction: row">
+      <view>床位数一：</view>
+      <input bindblur="defaultBedsInput0" value="{{defaultBeds[0]}}"></input>
+    </view>
+    <view class="picker" style="display:flex;flex-direction: row">
+      <view>床位数二：</view>
+      <input bindblur="defaultBedsInput1" value="{{defaultBeds[1]}}"></input>
+    </view>
+    <view class="picker" style="display:flex;flex-direction: row">
+      <view>床位数三：</view>
+      <input bindblur="defaultBedsInput2" value="{{defaultBeds[2]}}"></input>
+    </view>
+    <text class='sub_head'>修改默认日期</text>
+    <checkbox-group class="picker" bindchange="checkboxChange">
+      <label class="checkbox" wx:for="{{[0,1,2,3,4,5,6]}}" wx:key="">
+        <checkbox style="margin-left:20rpx" value="{{items[index].name}}" checked="{{items[index].checked}}" />{{items[index].value}}
+      </label>
+    </checkbox-group>
+  </view>
+
+
+
+  <view class='under_view'>
+    <text class='sub_head'>选择特定日期</text>
+    <picker mode="date" value="{{selectedDate}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindDateChange">
+      <view class="picker" style='color:blue'>
+        当前选择:{{selectedDate}}
+      </view>
+    </picker>
+
+    <text class='sub_head'>该日期是否出诊？</text>
+    <switch checked="{{isVisit}}" bindchange="switchChange" />
+    <text class='sub_head'>修改该日期出诊时间:</text>
+    <view style='flex-direction: row'>
+      <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTime1Change">
+        <view class="picker">
+          时间一: {{time1}}
+        </view>
+      </picker>
+      <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTime2Change">
+        <view class="picker">
+          时间二: {{time2}}
+        </view>
+      </picker>
+      <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTime3Change">
+        <view class="picker">
+          时间三: {{time3}}
+        </view>
+      </picker>
+    </view>
+  </view>
+  <text class='sub_head'>修改该日期床位数:</text>
+  <view class="picker" style="display:flex;flex-direction: row">
+      <view>床位数一：</view>
+      <input bindblur="specificBedsInput0" value="{{specificBeds[0]}}"></input>
+    </view>
+    <view class="picker" style="display:flex;flex-direction: row">
+      <view>床位数二：</view>
+      <input bindblur="specificBedsInput1" value="{{specificBeds[1]}}"></input>
+    </view>
+    <view class="picker" style="display:flex;flex-direction: row">
+      <view>床位数三：</view>
+      <input bindblur="specificBedsInput2" value="{{specificBeds[2]}}"></input>
+    </view>
+</view>
+<button id='assure' bindtap="confirm">确定</button>
+</scroll-view>

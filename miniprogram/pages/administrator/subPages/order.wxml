@@ -1,0 +1,20 @@
+<picker mode="date" value="{{selectedDate}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindSearchChange">
+  <view class="picker" style='color:blue'>
+    查询日期:{{searchDate}}
+  </view>
+</picker>
+  <view class='th tr'>
+    <view class='td'>姓名</view>
+    <view class='td'>手机号</view>
+    <view class='td'>时间</view>
+  </view>
+  <scroll-view scroll-y="true" style="height:80%;width:100%;">
+
+  <view class='tr' wx:key="" wx:for="{{orderData}}" bindtap="checkDetail" data-index="{{index}}" >
+  <block>
+    <view class='td'>{{item.name}}</view>
+    <view class='td' style="font-size:35rpx;">{{item.phone}}</view>
+    <view class='td'>{{item.time}}</view>
+  </block>
+  </view>
+  </scroll-view>

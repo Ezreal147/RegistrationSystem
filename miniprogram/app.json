@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/mainPage/index",
+    "pages/familly/familly",
+    "pages/agreement/index",
+    "pages/register/index",
+    "pages/one/one",
+    "pages/two/two",
+    "pages/administrator/index"    
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "挂号系统",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}

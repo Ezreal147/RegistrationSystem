@@ -1,0 +1,45 @@
+.table
+  {
+  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  width:100%;
+  border-collapse:collapse;
+  }
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 3rem;
+  align-items: center;
+
+}
+
+.td {
+    width:40%;
+    justify-content: center;
+    text-align: center;
+}
+
+
+
+.table .th 
+  {
+  font-size:1.1em;
+  text-align:left;
+  padding-top:5px;
+  padding-bottom:4px;
+  background-color:#336fdf;
+  color:#ffffff;
+  }
+
+.alt 
+  {
+  color:#000000;
+  background-color:#EAF2D3;
+  }
+
+  input{
+  border: 2rpx solid grey;
+  height: 70rpx;
+  line-height: 70rpx;
+  margin: 10rpx 0;
+}

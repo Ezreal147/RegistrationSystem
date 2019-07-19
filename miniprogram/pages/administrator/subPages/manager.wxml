@@ -1,0 +1,21 @@
+<scroll-view scroll-y="true" style="height:100%">
+<view class="table">
+  <view class='th tr'>
+    <view class='tt'>姓名</view>
+    <view class='tt'>手机号</view>
+  </view>
+
+<view class='tr' wx:key="" wx:for="{{managerMembers}}" bindlongpress='deleteManager' data-index="{{index}}" data-phone="{{item.phone}}">
+<view class='tt'>{{item.name}}</view>
+<view class='tt'>{{item.phone}}</view>
+</view>
+
+  <button bindtap='addManger'>添加管理员</button>
+  <modal hidden="{{manager_hiddenmodalput}}" title="添加成员" confirm - text="提交" cancel - text="取消" bindcancel="manager_cancel" bindconfirm="manager_confirm">
+    <view>
+      <input bindblur="manageName" style="width:100%;padding:5rpx 0;" type='text' placeholder="姓名：" auto - focus />
+      <input bindblur="managePhone" style="width:100%;padding:5rpx 0;" type='text' placeholder="手机号：" />
+    </view>
+  </modal>
+</view>
+</scroll-view>

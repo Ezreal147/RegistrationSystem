@@ -1,0 +1,34 @@
+<scroll-view scroll-y="true" style="height:100%">
+  <view style="height:100%">
+    <view class="head">
+      <view style="display:flex;flex-direction:row;">
+        <image id="head_img" src="../../images/doctor0.jpg"></image>
+        <view>
+          <view style="margin-left:10rpx;margin-top:40rpx;font-size:40rpx;font-weight:bold">马玉侠</view>
+          <view style="margin-left:10rpx;font-size:25rpx;">主任医师</view>
+        </view>
+      </view>
+      <view style="padding:10rpx 20rpx;font-size:30rpx">针灸及药物外治肠炎、痛经、不孕、咳嗽等妇儿科疾病。</view>
+    </view>
+
+    <view class="line"></view>
+
+    <view class="order_content">
+      <view class="content_head">
+        脐疗预约
+      </view>
+      <view style="width:100%">
+        <view class="date_item" wx:for="{{dateInfo}}" wx:key="" wx:for-index="dateIndex" wx:for-item="dateItem">
+          <view style="display: flex;flex-direction: row;">
+            <view class="to">{{dateItem.to}}</view>
+            <view class="dateInfo">{{dateItem.date+" "+dateItem.day}}</view>
+          </view>
+          <view class="detail_item">
+            <view class="orderButton {{index%2!=0?'space':''}} {{item.remain>0?'':'disable'}}" bindtap="onOrderTap" data-date="{{dateItem.value}}" data-time="{{item.time}}" data-click="{{item.remain>0?true:false}}" wx:for="{{dateItem.detail}}" wx:key="" >{{item.time+(item.remain>0?("  剩余:"+item.remain+" |预约"):" 已约满")}}</view>
+          </view>
+          
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

@@ -1,0 +1,145 @@
+/* miniprogram/pages/three/three.wxss */
+.menu-button{
+  width: 80rpx;
+  height: 56rpx;
+  padding: 15rpx 15rpx;
+  background-color: silver;
+  transition: all 0.4s ease; 
+  -webkit-transition: all 0.4s ease;
+  z-index: 2;
+}
+.menu-view{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: silver;
+  z-index: 2;
+  transition: all 0.4s ease; 
+  -webkit-transition: all 0.4s ease;
+  transform: rotate(0deg) scale(1) translate(-100%,0%); 
+  -webkit-transform: rotate(0deg) scale(1) translate(-100%,0%);
+}
+.c-state1{
+  transform: rotate(0deg) scale(1) translate(-50%,0%); 
+  -webkit-transform: rotate(0deg) scale(1) translate(-50%,0%); 
+}
+.c-state2{
+  transform: rotate(0deg) scale(1) translate(375rpx,0%); 
+  -webkit-transform: rotate(0deg) scale(1) translate(375rpx,0%); 
+}
+.item-block{
+  width: 50%;
+  height: 100%;
+  float: right;
+}
+.menu-item{
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+
+  z-index: 2;
+}
+.orderList{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+.changeTime{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+.adminList{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+.addAdmin{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+.title{
+  width: 100%;
+  height: 100rpx;
+  font-size: 50rpx;
+  text-align: center;
+}
+input{
+  font-size: 35rpx;
+  width: 100%;
+  height: 70rpx;
+  line-height: 70rpx;
+}
+.input-view{
+  border: 4rpx solid black;
+  width: 600rpx;
+  height: 70rpx;
+  margin-left: 75rpx;
+}
+button{
+  width: 150rpx;
+  height: 75rpx;
+  line-height: 75rpx;
+  margin-left: 300rpx;
+}
+scroll-view{
+  height: 950rpx;
+  width: 100%;
+}
+.scrollItem{
+  width: 100%;
+  height: 80rpx;
+  margin-top: 5rpx;
+  background-color: #f6f6f6;
+}
+.itemView1{
+  margin-left: 70rpx;
+  width: 150rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  float: left;
+  font-size: 35rpx;
+}
+.itemView2{
+  width: 500rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  float: left;
+  font-size: 30rpx;
+}
+.date{
+   width: 100%;
+   padding-top: 10rpx;
+   padding-bottom: 10rpx;
+   position: absolute;
+   margin-top: 320rpx;
+   background-color: #f6f6f6;
+   z-index: 1;
+ }
+  .daycircle {
+  float: left;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 45rpx;
+  font-size: 35rpx;
+  color: gainsboro;
+  line-height: 90rpx;
+  text-align: center;
+  background-color: white;
+  z-index: 1;
+  /* (255, 153, 0) */
+ }
+ .time{
+  float: left;
+  margin-top: 150rpx;
+  width: 200rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius:30rpx;
+  border: 2rpx solid rgb(255, 153, 0);
+  color: rgb(255, 153, 0);
+  font-size: 34rpx;
+  text-align: center;
+ }

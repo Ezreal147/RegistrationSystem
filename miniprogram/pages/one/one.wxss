@@ -1,0 +1,110 @@
+/* miniprogram/pages/one/one.wxss */
+.time{
+  background-color: gold;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+  text-align: center
+}
+
+.richtext{
+  font-weight: bold;
+  font-size: 30rpx;
+  position: absolute;
+  z-index: 0;
+  margin-top: 80rpx;
+  margin-left:40rpx;
+}
+.timebtn{
+  width:150rpx;
+  height: 75rpx;
+  border: 1rpx solid rgb(255, 153, 0);
+  margin-left: 35%;
+  line-height: 75rpx;
+  color: rgb(255, 153, 0);
+  z-index: 1;
+}
+.container{
+  width: 100%;
+  height: 75rpx;
+  position: absolute;
+  z-index: 0;
+  text-align: center;
+}
+
+.tips{
+  font-size: 30rpx;
+  color: rgb(255, 153, 0);
+}
+
+.order{
+  position: absolute;
+  background-color:#f6f6f6;
+  width: 100%;
+  height: 500rpx;
+  bottom: 0rpx;
+  z-index: 1;
+}
+.ready{
+  width: 100%;
+  height: 90rpx;
+  line-height: 60rpx;
+  top: 0rpx;
+  font-size: 35rpx;
+  background-color: white;
+}
+.orderdetail{
+  width: 100%;
+  height: 280rpx;
+  position: absolute;
+  margin-top: 130rpx;
+  background-color: white;
+  bottom: 125rpx;
+}
+.item{
+  width: 100%;
+  height: 70rpx;
+  background-color: white;
+  
+}
+.title{
+  margin-left: 25rpx;
+  width: 160rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: left;
+  float: left;
+}
+.detail{
+  float: left;
+  height: 70rpx;
+  line-height: 70rpx;
+  width: 300rpx;
+  text-align: left;
+}
+.cancel{
+  position: absolute;
+  bottom: 0rpx;
+  width:100%;
+  height: 120rpx;
+  text-align: right;
+  background-color: white;
+}
+.cancelButton{
+  margin-top: 30rpx;
+  margin-right: 30rpx;
+  width: 200rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius:30rpx;
+  border: 2rpx solid rgb(255, 153, 0);
+  color: rgb(255, 153, 0);
+  font-size: 34rpx;
+  text-align: center;
+}
+.noname{
+  height: 90rpx;
+  line-height: 90rpx;
+  float: left;
+  
+}

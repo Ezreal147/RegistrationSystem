@@ -1,0 +1,27 @@
+#precaution{
+  font-size: 2em;
+  text-align: center;
+  margin-top: 15rpx;
+}
+
+.pre_item{
+  margin-top: 10rpx;
+  font-size: 1.2em;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+#check_group
+{
+  margin-left: 10%;
+  margin-top: 10rpx;
+}
+label{
+  color: blue;
+}
+#btn_enter{
+  background-color:#3399FF;
+  margin-top: 50rpx;
+  width: 300rpx;
+  color: white;
+  font-size: 1.3em;
+}

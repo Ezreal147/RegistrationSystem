@@ -1,0 +1,22 @@
+<view >
+
+  <view class="flex-wrp" style="flex-direction:column;">
+    <view id="pre_head">脐疗预约客户端</view>
+    <view class='parent_view'  style="height: 70px;flex-direction:row;">
+    <label>您的姓名：</label>
+    <input type='text' id='name' focus='{{focus}}' value="{{name}}" bindblur="onNameInput"></input>
+    </view>
+    <view style="height: 70px;flex-direction:row;">
+    <label>电话号码：</label>
+    <input type='text' id='tele_number' value="{{tele_number}}" bindblur="onTeleNumberInput"></input>
+    </view>
+
+<checkbox-group id='check_group' bindChange="onChange">
+  <label class="checkbox">
+    <checkbox value="accept" checked="true"/>保存账号密码
+  </label>
+</checkbox-group>
+    <button bindtap='enter'>进入系统</button>
+     <button bindtap='apply' style='margin-top: 10px;'>新病号申请</button>
+  </view>
+</view>

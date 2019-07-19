@@ -1,0 +1,25 @@
+<view class="table">
+
+<view class='th tr'>
+<view class='td'>姓名</view>
+<view class='td'>与我关系</view>
+</view>
+<view class='tr' wx:key="" wx:for="{{famillyMembers}}" bindlongpress='delete_familly' data-index="{{item.name}}">
+<view class='td'>{{item.name}}</view>
+<view class='td'>{{item.relation}}</view>
+</view>
+
+<button bindtap='addMember'>添加成员</button>
+<modal
+hidden = "{{hiddenmodalput}}"
+title = "添加成员"
+confirm - text = "提交"
+cancel - text = "取消"
+bindcancel = "cancel"
+bindconfirm = "confirm">
+<view>
+<input bindblur="onNameInput" type = 'text' placeholder = "姓名：" auto - focus /> 
+<input bindblur="onRelationInput" type = 'text' placeholder = "亲属关系:" /> 
+</view>
+</modal>
+</view>

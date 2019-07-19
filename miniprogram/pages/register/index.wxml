@@ -1,0 +1,27 @@
+<view >
+
+  <view class="flex-wrp" style="flex-direction:column;">
+    <view id="pre_head">新病号信息录入</view>
+    <view class='parent_view'  style="height: 70px;flex-direction:row;">
+    <label>您的姓名：</label>
+    <input type='text' id='name' focus='true' bindblur='namechang'></input>
+    </view>
+    <view style="height: 70px;flex-direction:row;">
+    <label>电话号码：</label>
+    <input type='text' id='tele_number' bindblur='numberchange'></input>
+    </view>
+    <view style="height: 70px;flex-direction:row;">
+    <label><span>就诊卡号：</span></label>
+    <input type='text' id='tele_number' bindblur='cardchang'></input>
+    </view>
+<radio-group class="radio-group" bindchange="radioChange">
+  <label class="radio" >
+    <radio value="boy" checked/>男
+  </label>
+    <label class="radio">
+    <radio value="girl" />女
+  </label>
+</radio-group>
+     <button bindtap='verify' style='margin-top: 70px;'>提交审核</button>
+  </view>
+</view>

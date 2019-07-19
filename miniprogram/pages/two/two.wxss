@@ -1,0 +1,76 @@
+/* miniprogram/pages/two/two.wxss */
+.head{
+  width: 100%;
+  height: 250rpx;
+  position: absolute;
+  background-color: white;
+}
+
+.detail{
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  position: absolute;
+  background-color: white;
+}
+.down{
+  width: 100%;
+  height: 140rpx;
+  line-height: 140rpx;
+  position: absolute;
+  background-color: white;
+  bottom:0rpx;
+}
+.title{
+  float: left;
+  margin-left: 20rpx;
+  font-size: 35rpx;
+  line-height: 90rpx;
+  text-align: center;
+  height: 90rpx;
+}
+
+.value{
+  float: right;
+  margin-right: 20rpx;
+  font-size: 35rpx;
+}
+.inputvalue{
+  float: right;
+  height: 90rpx;
+  width: 300rpx;
+  text-align: right;
+  margin-right: 20rpx;
+  font-size: 35rpx;
+}
+
+.surebtn{
+  margin-top: 25rpx;
+  line-height: 90rpx;
+  color: white;
+  width: 180rpx;
+  height: 90rpx;
+  margin-right: 30rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  background-color: rgb(255, 153, 0);
+}
+.tips{
+  line-height: 50rpx;
+  height: 50rpx;
+  color: red;
+  font-size: 26rpx;
+  position: absolute;
+}
+.pic{
+  float: left;
+  height: 60rpx;
+  width: 60rpx;
+  margin-top: 15rpx;
+  padding-left: 5rpx;
+}
+.head_pic{
+  width: 100%;
+  height: 270rpx;
+  padding: 5rpx;
+}

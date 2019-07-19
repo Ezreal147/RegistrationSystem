@@ -1,0 +1,22 @@
+<view class="container">
+
+  <view class="content">
+    <swiper style="height:100%"  current="{{cur}}" bindchange="bindChange" duration="0">
+      <swiper-item>
+        <include src="order.wxml"/>
+      </swiper-item>
+      <swiper-item>
+        <include src="mine.wxml" />
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <view class="nav_bottom">
+    <view class="nav_button {{cur==0?'button_active':''}}">
+      <text bindtap="orderView">预约</text>
+    </view>
+    <view class="nav_button {{cur==1?'button_active':''}}">
+      <text bindtap="my">我的</text>
+    </view>
+  </view>
+</view>

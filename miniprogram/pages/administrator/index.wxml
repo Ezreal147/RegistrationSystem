@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="nav_left">
+    <block wx:for="{{level}}" wx:key="">
+      <view class="nav_left_item {{cur == item.cate_id ? 'active' : ''}}" data-index='{{index}}' data-id='{{item.cate_id}}' bindtap='onClick'>{{item.cate_name}}</view>
+    </block>
+  </view>
+  <view class='nav_right'>
+
+    <swiper current="{{cur}}" bindchange="bindChange" duration='0'>
+      <swiper-item>
+       <include src="subPages/book.wxml"/>
+      </swiper-item>
+      <swiper-item>
+       <include src="subPages/order.wxml"/>
+      </swiper-item>
+      <swiper-item>
+       <include src="subPages/date.wxml"/>
+      </swiper-item>
+      <swiper-item>
+       <include wx:if="{{isroot}}" src="subPages/manager.wxml"/>
+       <include wx:if="{{!isroot}}" src="subPages/noPermission.wxml"/>
+      </swiper-item>
+      <swiper-item>
+       <include src="subPages/bedManage.wxml"/>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>
