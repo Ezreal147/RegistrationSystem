@@ -10,7 +10,7 @@
 	},
 	"appid": "wxf5d630c6c655edb2",
 	"projectname": "RegistrationSystem",
-	"libVersion": "2.6.6",
+	"libVersion": "2.7.7",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",

@@ -1,0 +1,9 @@
+{
+  "triggers": [
+    {
+      "name": "autoDeleteOrder",
+      "type": "timer",
+      "config": "0 0 0 * * * *"
+    }
+  ]
+}

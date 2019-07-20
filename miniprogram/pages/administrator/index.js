@@ -2,13 +2,22 @@ const mydate = new Date()
 const db=wx.cloud.database()
 Page({
   data: {
+    pwd0:"",
+    pwd1:"",
+    changeRootHidden:true,
+    searchUserInfo:null,
+    bookName:"",
+    bookPhone:"",
+    searchUserHidden:true,
+    modifyPageHidden:true,
+    clinicPlace:"某某科室",
     allOrder:null,
     orderData:null,
     searchDate: (mydate.getFullYear() + "-" + (mydate.getMonth() + 1) + "-" + mydate.getDate()),
     startDate: mydate,
     isroot:false,
     allAplly:null,
-    isVisit:true,
+    isVisit:null,
     selectedDate: (mydate.getFullYear()+"-"+(mydate.getMonth()+1)+"-"+mydate.getDate()),
     startDate:mydate,
     Default_time1: '',
@@ -55,10 +64,14 @@ Page({
       {
         cate_id:4,
         cate_name:"排床管理"
+      },
+      {
+        cate_id:5,
+        cate_name:"黑名单列表"
       }
     ],
     application_users:null,
-    managerMembers: [{ name: "xia", number: 12344 }, { name: "xia", number: 12344 }, { name: "xia", number: 12344 }],
+    managerMembers: null,
     manageName:"",
     managePhone:"",
     cur: 0, //当前选中的cate_id
@@ -66,12 +79,116 @@ Page({
     bed_hiddenmodalput: true,
     temp_room_name: '',
     temp_room_number: '',
-    beds: [{ name: 1, number: 10, open: true },
-    { name: 1, number: 10, open: true },
-    { name: 1, number: 10, open: true },
+    beds: [{ name: "", number: 10, open: true },
+    { name: "", number: 10, open: true },
+    { name: "", number: 10, open: true },
     { name: 1, number: 10, open: true }
-    ]
+    ],
+    blackList:null,
   },
+  changeRoot:function(e){
+    this.setData({
+      changeRootHidden:false
+    })
+  },
+  changePwdCancel:function(){
+    this.setData({
+      changeRootHidden:true
+    })
+  },
+  pwdInput0:function(e){
+    this.setData({
+      pwd0:e.detail.value
+    })
+  },
+  pwdInput1:function(e){
+    this.setData({
+      pwd1:e.detail.value
+    })
+  },
+  changePwdConfirm:function(){
+    if(this.data.pwd0=="" || this.data.pwd1==""){
+      wx.showToast({
+        title: '请输入信息',
+        icon:'none'
+      })
+      return
+    }
+    if(this.data.pwd0!=this.data.pwd1){
+      wx.showToast({
+        title: '两次输入密码不同',
+        icon:"none"
+      })
+      return
+    }
+    wx.cloud.callFunction({
+      name:"adminOperate",
+      data:{
+        operation:"Admin",
+        value:{
+          opt: "RootPwd",
+          pwd: this.data.pwd0
+        }
+        
+      },
+      success:res=>{
+        if (res.result.status == 0) {
+          wx.showToast({
+            title: '修改成功',
+          })
+          this.setData({
+            changeRootHidden:true
+          })
+        } else {
+          wx.showToast({
+            title: res.result.msg,
+            icon: "none"
+          })
+        }
+      }
+    })
+  },
+  addBlack:function(e){
+    var phone=e.currentTarget.dataset.phone
+    var name=e.currentTarget.dataset.name
+    wx.showModal({
+      title: '',
+      content: '确认添加黑名单',
+      success:res=>{
+        if(res.confirm){
+          wx.cloud.callFunction({
+            name:"adminOperate",
+            data:{
+              operation:"Black",
+              value:{
+                opt:"add",
+                phone:phone,
+                name:name
+              },
+            },
+              success:res=>{
+                if(res.result.status==0){
+                  wx.showToast({
+                    title: '添加成功',
+                  })
+                }else{
+                  wx.showToast({
+                    title: res.result.msg,
+                    icon:"none"
+                  })
+                }
+              }
+          })
+        }
+      }
+    })
+  },
+  clinicPlaceInput:function(e){
+    this.setData({
+      clinicPlace:e.detail.value
+    })
+  },
+
   manageName:function(e){
     this.setData({
       manageName:e.detail.value
@@ -162,6 +279,90 @@ Page({
         this.fillterOrder()
       })
   },
+  cancelSearch:function(){
+    this.setData({
+      searchUserHidden:true
+    })
+  },
+  searchModifyUser:function(e){
+    if(this.data.bookName=="" || this.data.bookPhone==""){
+      wx.showToast({
+        title: '请输入信息',
+        icon:"none"
+      })
+      return
+    }
+    db.collection("userInfo").where({
+      phoneNumber:this.data.bookPhone
+    }).get()
+    .then(res=>{
+      if(res.data.length==0){
+        wx.showToast({
+          title: '该用户不存在',
+          icon:"none"
+        })
+        return
+      }
+      this.setData({
+        searchUserInfo:res.data[0],
+        searchUserHidden:true,
+        modifyPageHidden:false
+      })
+    })
+  },
+  tempNum:function(e){
+    this.setData({
+      'searchUserInfo.available':e.detail.value
+    })
+  },
+  modifycancel:function(){
+    this.setData({
+      modifyPageHidden:true
+    })
+  },
+  modifyconfirm:function(){
+    wx.cloud.callFunction({
+      name:"adminOperate",
+      data:{
+        operation:"Apply",
+        value:{
+          opt:"modify",
+          phone: this.data.searchUserInfo.phoneNumber,
+          available: this.data.searchUserInfo.available,
+        }
+      },
+      success:res=>{
+        if (res.result.status == 0) {
+          wx.showToast({
+            title: '修改成功',
+          })
+          this.setData({
+            modifyPageHidden:true
+          })
+        } else {
+          wx.showToast({
+            title: res.result.msg,
+            icon: "none"
+          })
+        }
+      }
+    })
+  },
+  bookName:function(e){
+    this.setData({
+      bookName:e.detail.value
+    })
+  },
+  bookPhone: function (e) {
+    this.setData({
+      bookPhone: e.detail.value
+    })
+  },
+  modifyNumber:function(){
+    this.setData({
+      searchUserHidden:!this.data.searchUserHidden
+    })
+  },
   bindSearchChange:function(e){
     var dateList = e.detail.value.split("-")
     this.setData({
@@ -178,6 +379,49 @@ Page({
     });
 
   },
+  refreshBlack:function(){
+    db.collection("blackList").get()
+    .then(res=>{
+      this.setData({
+        blackList:res.data
+      })
+    })
+  },
+  deleteBlack:function(e){
+    wx.showModal({
+      title: '',
+      content: '确认删除',
+      success:res=>{
+        if(res.confirm){
+          wx.cloud.callFunction({
+            name: "adminOperate",
+            data: {
+              operation: "Black",
+              value: {
+                opt: "delete",
+                phone: phone
+              }
+            },
+            success: res => {
+              if (res.result.status == 0) {
+                wx.showToast({
+                  title: '删除成功',
+                })
+                this.refreshBlack()
+              } else {
+                wx.showToast({
+                  title: res.result.msg,
+                  icon: "none"
+                })
+              }
+            }
+          })
+        }
+      }
+    })
+    var phone=e.currentTarget.dataset.phone
+   
+  },
   onClick: function(e) {
     switch(e.target.dataset.index){
       case 0:
@@ -190,6 +434,13 @@ Page({
         break
       case 3:
         this.refreshAdmin()
+        break
+      case 4:
+        this.refreshRoom()
+        break
+      case 5:
+        this.refreshBlack()
+        break
 
     }
     var that = this;
@@ -210,15 +461,19 @@ Page({
   bindDateChange:function(e)
   {
     var dateList=e.detail.value.split("-")
-
+    wx.showLoading({
+      title: '加载中',
+    })
     this.setData({
       selectedDate: Number(dateList[0])+"-"+Number(dateList[1])+"-"+Number(dateList[2])
     })
+    var that=this
     db.collection("twoWeeks").where({
       date: this.data.selectedDate
     }).get()
       .then(res => {
         var specificTime = res.data[0].clinicTime
+        var specificBeds = res.data[0].beds
         this.setData({
           time1: specificTime[0],
           time2: specificTime[1],
@@ -226,6 +481,7 @@ Page({
           specificBeds: specificBeds,
           isVisit: res.data[0].isVisit
         })
+        wx.hideLoading()
       })
   }
   ,
@@ -265,18 +521,21 @@ Page({
     })
   },
   defaultBedsInput0:function(e){
+    var key="defaultBeds["+e.currentTarget.dataset.index+"][0]"
     this.setData({
-      'defaultBeds[0]': Number(e.detail.value)
+      [key]: Number(e.detail.value)
     })
   },
   defaultBedsInput1: function (e) {
+    var key = "defaultBeds[" + e.currentTarget.dataset.index + "][1]"
     this.setData({
-      'defaultBeds[1]': Number(e.detail.value)
+      [key]: Number(e.detail.value)
     })
   },
   defaultBedsInput2: function (e) {
+    var key = "defaultBeds[" + e.currentTarget.dataset.index + "][2]"
     this.setData({
-      'defaultBeds[2]': Number(e.detail.value)
+      [key]: Number(e.detail.value)
     })
   },
   switchChange: function(e)
@@ -300,6 +559,14 @@ Page({
         Default_time1:clinicTime[0],
         Default_time2:clinicTime[1],
         Default_time3:clinicTime[2],
+      })
+    })
+    db.collection("defaultSetting").where({
+      type:"place"
+    }).get()
+    .then(res=>{
+      this.setData({
+        clinicPlace:res.data[0].place
       })
     })
     db.collection("defaultSetting").where({
@@ -347,6 +614,7 @@ Page({
     this.refreshApply()
     this.refreshAdmin()
     this.refreshOrderData()
+    this.refreshRoom()
   },
   refreshAdmin:function(){
     wx.cloud.callFunction({
@@ -392,6 +660,7 @@ Page({
           defaultTime: [this.data.Default_time1, this.data.Default_time2, this.data.Default_time3],
           defaultDate:this.data.defaultDate,
           defaultBeds:this.data.defaultBeds,
+          defaultPlace:this.data.clinicPlace,
           specific: this.data.selectedDate,
           isVisit: this.data.isVisit,
           specificTime: [this.data.time1, this.data.time2, this.data.time3],
@@ -607,9 +876,34 @@ Page({
     })
   },
   bed_change: function (e) {
-    console.log(this.data.e)
-    this.data.beds[e.currentTarget.dataset.index]['open'] = e.detail.value
-    console.log(this.data.beds)
+    var newOpen = e.detail.value
+    var room=e.currentTarget.dataset.name
+    this.data.beds[e.currentTarget.dataset.index]['open']=newOpen
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.cloud.callFunction({
+      name: "adminOperate",
+      data: {
+        operation: "BEDS",
+        value: {
+          opt: "OPENCHANGE",
+          room: room,
+          open: newOpen
+        }
+      },
+      success: res => {
+        wx.hideLoading()
+        if (res.result.status == 0) {
+          this.refreshRoom()
+        } else {
+          wx.showToast({
+            title: res.result.msg,
+            icon: "none"
+          })
+        }
+      }
+    })
   },
   number_change: function (e) {
     this.setData({
@@ -618,11 +912,122 @@ Page({
   },
   //长按删除bed，根据index删除上面beds属性的item 
   delete_bed: function (e) {
-    console.log(e.currentTarget.dataset.index)
+    wx.showModal({
+      title: '',
+      content: '确认删除',
+      success:res=>{
+        if(res.confirm){
+          wx.cloud.callFunction({
+            name: "adminOperate",
+            data: {
+              operation: "BEDS",
+              value: {
+                opt: "REMOVE",
+                room: e.currentTarget.dataset.index,
+              }
+            },
+            success: res => {
+              wx.hideLoading()
+
+              if (res.result.status == 0) {
+                this.refreshRoom()
+              } else {
+                wx.showToast({
+                  title: res.result.msg,
+                  icon: "none"
+                })
+              }
+            }
+          })
+        }
+      }
+    })
+    
   }
   ,
   //添加床位
   bed_confirm: function (e) {
+    if(this.data.temp_room_name=="" || this.data.temp_room_number==""){
+      wx.showToast({
+        title: '请输入信息',
+        icon:"none"
+      })
+    }
+    for(var i=0;i<this.data.beds.length;i++){
+      if(this.data.beds[i].name==this.data.temp_room_name){
+        wx.showToast({
+          title: '该房间已存在',
+          icon:"none"
+        })
+        return
+      }
+    }
+    wx.showLoading({
+      title: '添加中',
+    })
+    wx.cloud.callFunction({
+      name:"adminOperate",
+      data:{
+        operation:"BEDS",
+        value:{
+          opt:"ADD",
+          room:this.data.temp_room_name,
+          number:this.data.temp_room_number
+        }
+      },
+      success:res=>{
+        wx.hideLoading()
+        
+        if(res.result.status==0){
+          wx.showToast({
+          title: '添加成功',
+        })
+        this.refreshRoom()
+        }else{
+          wx.showToast({
+            title: res.result.msg,
+            icon:"none"
+          })
+        }
+        this.setData({
+          bed_hiddenmodalput:true
+        })
+      }
+    })
+  },
+  refreshRoom:function(){
+    db.collection("roomList").get()
+    .then(res=>{
+      this.setData({
+        beds:res.data
+      })
+    })
+  },
+  changeBedNum:function(e){
+    var newNum=e.detail.value
+    var room=e.currentTarget.dataset.index
+    wx.cloud.callFunction({
+      name: "adminOperate",
+      data: {
+        operation: "BEDS",
+        value: {
+          opt: "NUMCHANGE",
+          room: room,
+          number: newNum
+        }
+      },
+      success: res => {
+        wx.hideLoading()
 
+        if (res.result.status == 0) {
+          this.refreshRoom()
+        } else {
+          wx.showToast({
+            title: res.result.msg,
+            icon: "none"
+          })
+        }
+      }
+    })
   }
 })

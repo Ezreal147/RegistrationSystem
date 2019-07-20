@@ -61,6 +61,7 @@ exports.main = async (event, context) => {
   strDate = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()
   var res=await removeDate(strDate)
   now.setDate(now.getDate()+14)
+  defaultBeds=defaultBeds[now.getDay()]
   strDate = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()
   var defaultDate=await getDefaultDate()
   var visit=false

@@ -10,12 +10,14 @@ Page({
    */
   data: {
     dateInfo:null,
+    total:0,
     // [
     //   { date: "7月17日", day: "周三", value: "2019-7-17", to: "一天后", detail: [{ time: "13:00", remain: 25 }, { time: "15:00", remain: 25 }, { time: "16:00", remain: 25 }]},
     //   { date: "7月19日", day: "周五", value: "2019-7-17",  to: "三天后", detail: [{ time: "13:00", remain: 25 }, { time: "15:00", remain: 25 }, { time: "16:00", remain: 25 }]},
     //   { date: "7月21日", day: "周日", value: "2019-7-17",  to: "五天后", detail: [{ time: "13:00", remain: 25 }, { time: "15:00", remain: 25 }, { time: "16:00", remain: 25 }] },
     // ],
     cur:0,
+    black:false,
     optList:null,
     username: '',
     phonenumber: '',
@@ -37,9 +39,30 @@ Page({
     this.setData({
       username: options.name,
       phonenumber: options.tele_number,
+      black:options.black
     })
+    if(options.black=="true"){
+      wx.showModal({
+        title: '',
+        content: '由于您预约后未就诊，您已进入黑名单，无法网上预约脐疗，请到门诊处现场预约并解除黑名单',
+        showCancel:false
+      })
+    }
     this.refresh(0)
     this.refreshOrder()
+  },
+  showBedInfo:function(e){
+    var msg = this.data.userful[e.currentTarget.dataset.index].place
+    if (msg == "") {
+      msg = "请于当天9:30后查看床位信息"
+    } else {
+      msg = "就诊地点：" + msg
+    }
+    wx.showModal({
+      title: '就诊地点',
+      content: msg,
+      showCancel: false
+    })
   },
   refreshOrder:function(){
     db.collection("orderInfo").where({
@@ -76,6 +99,15 @@ Page({
           var total=this.data.orderInfo
           var deleteName=e.currentTarget.dataset.name
           var deleteDate = e.currentTarget.dataset.date
+          var now=new Date()
+          now=now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate()
+          if(now==deleteDate){
+            wx.showToast({
+              title: '预约当天不可取消',
+              icon:"none"
+            })
+            return
+          }
           var deleteTime=e.currentTarget.dataset.time
           var pushOrder=new Array()
           for(var i=0;i<total.length;i++){
@@ -113,7 +145,8 @@ Page({
                   if(res.result.status==0){
                     db.collection("userInfo").doc(this.data.userDBId).update({
                       data: {
-                        available: _.inc(1)
+                        available: _.inc(1),
+                        total:_.inc(-1)
                       }
                     }).then(res=>{
                       if (res.stats.updated == 1) {
@@ -216,6 +249,7 @@ Page({
                 var dat = all[i].date.split("-")
                 if (i == 0) {
                   today = Number(dat[2])
+                  continue
                 }
                 var date = new Date(dat[0], Number(dat[1]) - 1, dat[2])
                 if (all[i].isChange == true) {
@@ -243,7 +277,7 @@ Page({
                     for (var j = 0; j < defaultSetting[1].clinicTime.length; j++) {
                       detail.push({
                         time: defaultSetting[1].clinicTime[j],
-                        remain: defaultSetting[0].beds[j] - all[i].count[j]
+                        remain: defaultSetting[0].beds[date.getDay()][j] - all[i].count[j]
                       })
                     }
                     dateInfo.push({
@@ -272,7 +306,8 @@ Page({
             bookedNumber: res.data[0].available,
             card:res.data[0].medicalCard,
             userDBId:res.data[0]._id,
-            userGender:res.data[0].gender
+            userGender:res.data[0].gender,
+            total:res.data[0].total
           })
         })
     }
@@ -362,7 +397,7 @@ Page({
     }
     var opt = this.data.optList[e.currentTarget.dataset.date].indexOf(e.currentTarget.dataset.time)
     wx.navigateTo({
-      url: '../two/two?date=' + e.currentTarget.dataset.date + "&time=" + e.currentTarget.dataset.time+"&phoneNumber="+this.data.phonenumber+"&opt="+opt,
+      url: '../two/two?date=' + e.currentTarget.dataset.date + "&time=" + e.currentTarget.dataset.time+"&phoneNumber="+this.data.phonenumber+"&opt="+opt+"&black="+this.data.black,
     })
   }
 })

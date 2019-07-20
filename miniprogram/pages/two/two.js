@@ -8,13 +8,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    formID:"",
     userDBId:null,
     available: null,
     clinicTime: null,
     clinicDate: null,
     relatives: null,
     showname:null,
-    clinicPlace: "某某科室",
+    clinicPlace: "",
     patient: "",
     phoneNumber: "",
     strdate: null,
@@ -24,19 +25,43 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    var d = options.date.split('-')
+  submit:function(e){
     this.setData({
-      phoneNumber: options.phoneNumber,
-      strdate: options.date,
-      clinicDate: d[0] + "年" + d[1] + "月" + d[2] + "日",
-      clinicTime: options.time,
-      clinicPlace: "某某科室",
-      opt:options.opt
+      formID:e.detail.formId
     })
-
+  },
+  onLoad: function(options) {
+    if(options.black=="true"){
+      wx.showModal({
+        title: '',
+        content: '您已进入黑名单，无法预约！请到门诊处解除',
+        showCancel:false,
+        success:res=>{
+          if(res.confirm){
+            wx.navigateBack({
+              delta: 1,
+            })
+          }
+        }
+      })
+    }
+    var d = options.date.split('-')
+    db.collection("defaultSetting").where({
+      type:"place",
+    }).get()
+    .then(res=>{
+      this.setData({
+        phoneNumber: options.phoneNumber,
+        strdate: options.date,
+        clinicDate: d[0] + "年" + d[1] + "月" + d[2] + "日",
+        clinicTime: options.time,
+        clinicPlace: res.data[0].place,
+        opt: options.opt
+      })
+    })
+    
     db.collection("userInfo").where({
-        phoneNumber: this.data.phoneNumber
+        phoneNumber: options.phoneNumber
       }).get()
       .then(res => {
         var showname=new Array()
@@ -137,6 +162,7 @@ Page({
       return
     }
     var query_id = null
+    var that = this
     db.collection("orderInfo").where({
         phone: this.data.phoneNumber
       }).get()
@@ -159,11 +185,25 @@ Page({
                 title: '预约成功',
                 duration:2000,
                 complete: function () {
+                  var time=this.data.clinicTime
                   setTimeout(function(){
+                    console.log(that.data.formID)
+                    wx.cloud.callFunction({
+                      name: "sendMsg",
+                      data: {
+                        formID: that.data.formID,
+                        phone: that.data.phoneNumber,
+                        name: that.data.patient,
+                        time: that.data.clinicDate + " " + that.data.clinicTime,
+                        place: that.data.clinicPlace,
+                      }
+                    })
                     wx.navigateBack({
                       delta: 1,
                     })
                   },2000)
+
+                  
                 }
               })
               
@@ -176,6 +216,7 @@ Page({
             }
           })
         }else{
+          var that = this
           query_id=res.data[0]._id
           var now=new Date()
           var detail=res.data[0].detail
@@ -205,7 +246,8 @@ Page({
               if(res.stats.updated==1){
                 db.collection("userInfo").doc(this.data.userDBId).update({
                   data: {
-                    available: _.inc(-1)
+                    available: _.inc(-1),
+                    total:_.inc(1)
                   }
                 }).then(res => {
                   wx.cloud.callFunction({
@@ -218,11 +260,24 @@ Page({
                     success:res=>{
                       wx.hideLoading()
                       if(res.result.status==0){
+                        
                         wx.showToast({
                           title: '预约成功',
                           duration: 2000,
                           complete: function () {
+                            
                             setTimeout(function () {
+                              console.log(that.data.formID)
+                              wx.cloud.callFunction({
+                                name: "sendMsg",
+                                data: {
+                                  formID: that.data.formID,
+                                  phone: that.data.phoneNumber,
+                                  name: that.data.patient,
+                                  time: that.data.clinicDate + " " + that.data.clinicTime,
+                                  place: that.data.clinicPlace,
+                                }
+                              })
                               wx.navigateBack({
                                 delta: 1,
                               })

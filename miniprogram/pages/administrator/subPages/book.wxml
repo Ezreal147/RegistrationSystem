@@ -1,8 +1,9 @@
 <scroll-view scroll-y="true" style="height:100%">
+<view class="picker" style='color:blue' bindtap="modifyNumber">
+    手动修改次数
+  </view>
 <view class="table">
-
-
-  <view class='th tr'>
+  <view class='th tr' bindtap="modifyNumber">
     <view class='td'>姓名</view>
     <view class='td'>申请次数</view>
     <view class='td'>操作</view>
@@ -31,4 +32,29 @@ bindconfirm = "book_confirm">
 </view>
 </view>
 </modal>
+
+<modal
+hidden = "{{modifyPageHidden}}"
+title = "详细信息"
+confirmText = "修改"
+cancelText = "取消"
+bindconfirm = "modifyconfirm"
+bindcancel="modifycancel">
+<view id='showinfo'>
+<view>姓名：  {{searchUserInfo.name}}</view>
+<view>性别：  {{searchUserInfo.gender}}</view>
+<view>电话：  {{searchUserInfo.phoneNumber}}</view>
+<view>卡号：  {{searchUserInfo.medicalCard}}</view>
+<view>黑名单:  {{searchUserInfo.black}}</view>
+<view style="display:flex;flex-direction:row;">次数：<input bindblur="tempNum" value="{{searchUserInfo.available}}"></input>  
+</view>
+</view>
+</modal>
+
+<modal hidden="{{searchUserHidden}}" title="搜索用户" confirmText="搜索" cancelText="取消"  bindconfirm="searchModifyUser" bindcancel="cancelSearch">
+    <view>
+      <input bindblur="bookName" style="width:100%;padding:5rpx 0;" type='text' placeholder="姓名：" auto - focus />
+      <input bindblur="bookPhone" style="width:100%;padding:5rpx 0;" type='text' placeholder="手机号：" />
+    </view>
+  </modal>
 </scroll-view>

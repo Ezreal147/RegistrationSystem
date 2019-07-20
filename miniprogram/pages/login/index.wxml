@@ -8,7 +8,7 @@
     </view>
     <view style="height: 70px;flex-direction:row;">
     <label>电话号码：</label>
-    <input type='text' id='tele_number' value="{{tele_number}}" bindblur="onTeleNumberInput"></input>
+    <input password="{{isroot}}" type='text' id='tele_number' value="{{tele_number}}" bindblur="onTeleNumberInput"></input>
     </view>
 
 <checkbox-group id='check_group' bindChange="onChange">

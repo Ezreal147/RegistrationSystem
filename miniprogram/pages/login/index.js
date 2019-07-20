@@ -3,6 +3,7 @@ wx.cloud.init()
 const db=wx.cloud.database()
 Page({
   data: {
+    isroot:false,
     tele_number:"",
     name:"",
     focus:false,
@@ -49,8 +50,15 @@ Page({
     })
   },
   onNameInput:function(e){
+    var isroot=false
+    if (e.detail.value=='root'){
+      isroot=true
+    }else{
+      isroot=false
+    }
     this.setData({
-      name:e.detail.value
+      name:e.detail.value,
+      isroot:isroot
     })
   },
   enter:function()
@@ -98,7 +106,7 @@ Page({
         })
         return
     }
-
+    var black=false
    db.collection("userInfo").where({
      phoneNumber:this.data.tele_number
    }).get()
@@ -131,8 +139,8 @@ Page({
        })
      }else{
        wx.hideLoading()
-       wx.redirectTo({
-         url: '../mainPage/index?name='+this.data.name+'&tele_number='+this.data.tele_number,
+       wx.navigateTo({
+         url: '../mainPage/index?name='+this.data.name+'&tele_number='+this.data.tele_number+"&black="+res.data[0].black,
        })
      }
    })

@@ -72,6 +72,7 @@ Page({
             medicalCard:this.data.card,
             name:this.data.name,
             phoneNumber:this.data.phone,
+            black:false,
             relatives:[{name:this.data.name,relation:"me"}]
           }
         })

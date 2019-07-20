@@ -23,6 +23,9 @@
       <swiper-item>
        <include src="subPages/bedManage.wxml"/>
       </swiper-item>
+      <swiper-item>
+       <include src="subPages/blackList.wxml"/>
+      </swiper-item>
     </swiper>
   </view>
 </view>

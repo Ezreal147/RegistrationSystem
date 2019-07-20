@@ -17,19 +17,18 @@
         默认时间三: {{Default_time3}}
       </view>
     </picker>
+    <text class='sub_head'>修改就诊科室</text>
+    <view class="picker" style="display:flex;flex-direction: row">
+      <view>地点：</view>
+      <input bindblur="clinicPlaceInput" value="{{clinicPlace}}" style="width:70%"></input>
+    </view>
     <text class='sub_head'>修改默认床位数</text>
-    <view class="picker" style="display:flex;flex-direction: row">
-      <view>床位数一：</view>
-      <input bindblur="defaultBedsInput0" value="{{defaultBeds[0]}}"></input>
-    </view>
-    <view class="picker" style="display:flex;flex-direction: row">
-      <view>床位数二：</view>
-      <input bindblur="defaultBedsInput1" value="{{defaultBeds[1]}}"></input>
-    </view>
-    <view class="picker" style="display:flex;flex-direction: row">
-      <view>床位数三：</view>
-      <input bindblur="defaultBedsInput2" value="{{defaultBeds[2]}}"></input>
-    </view>
+    <view wx:key="" wx:for="{{['周日','周一','周二','周三','周四','周五','周六']}}" class="picker" style="display:flex;flex-direction: row">
+      <view>{{item}}：</view>
+      <input style="width:17%;margin:0 10rpx;" bindblur="defaultBedsInput0" data-index="{{index}}" value="{{defaultBeds[index][0]}}"></input>
+      <input style="width:17%;margin:0 10rpx;" bindblur="defaultBedsInput1" data-index="{{index}}" value="{{defaultBeds[index][1]}}"></input>
+      <input style="width:17%;margin:0 10rpx;" bindblur="defaultBedsInput2" data-index="{{index}}" value="{{defaultBeds[index][2]}}"></input>
+    </view>   
     <text class='sub_head'>修改默认日期</text>
     <checkbox-group class="picker" bindchange="checkboxChange">
       <label class="checkbox" wx:for="{{[0,1,2,3,4,5,6]}}" wx:key="">
@@ -52,17 +51,17 @@
     <switch checked="{{isVisit}}" bindchange="switchChange" />
     <text class='sub_head'>修改该日期出诊时间:</text>
     <view style='flex-direction: row'>
-      <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTime1Change">
+      <picker mode="time" value="{{time1}}" start="09:01" end="21:01" bindchange="bindTime1Change">
         <view class="picker">
           时间一: {{time1}}
         </view>
       </picker>
-      <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTime2Change">
+      <picker mode="time" value="{{time2}}" start="09:01" end="21:01" bindchange="bindTime2Change">
         <view class="picker">
           时间二: {{time2}}
         </view>
       </picker>
-      <picker mode="time" value="{{time}}" start="09:01" end="21:01" bindchange="bindTime3Change">
+      <picker mode="time" value="{{time3}}" start="09:01" end="21:01" bindchange="bindTime3Change">
         <view class="picker">
           时间三: {{time3}}
         </view>

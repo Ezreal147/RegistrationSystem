@@ -24,7 +24,7 @@
             <view class="dateInfo">{{dateItem.date+" "+dateItem.day}}</view>
           </view>
           <view class="detail_item">
-            <view class="orderButton {{index%2!=0?'space':''}} {{item.remain>0?'':'disable'}}" bindtap="onOrderTap" data-date="{{dateItem.value}}" data-time="{{item.time}}" data-click="{{item.remain>0?true:false}}" wx:for="{{dateItem.detail}}" wx:key="" >{{item.time+(item.remain>0?("  剩余:"+item.remain+" |预约"):" 已约满")}}</view>
+            <view class="orderButton {{index%2!=0?'space':''}} {{item.remain>0?'':'disable'}}" bindtap="onOrderTap" data-date="{{dateItem.value}}" data-time="{{item.time}}" data-click="{{item.remain>0?true:false}}" wx:for="{{dateItem.detail}}" wx:key="" >{{item.time+(item.remain>0?("   剩余:"+item.remain+"  |预约"):" 已约满")}}</view>
           </view>
           
         </view>

@@ -73,19 +73,21 @@
   font-size: 25rpx;
 }
 .dateInfo{
-  width: 200rpx;
+  font-size: 35rpx;
+  width: 240rpx;
   height: 50rpx;
   line-height: 50rpx;
   text-align: center;
   padding-left: 20rpx;
 }
 .orderButton{
-  width:300rpx;
+  width:340rpx;
   height: 70rpx;
   margin-top: 15rpx;
   border: 2rpx solid rgb(255, 153, 0); 
   border-radius: 35rpx;
   line-height: 70rpx;
+  font-size: 35rpx;
   text-align: center;
   color: rgb(255, 153, 0); 
 }

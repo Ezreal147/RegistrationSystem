@@ -1,4 +1,7 @@
 <scroll-view scroll-y="true" style="height:100%">
+<view class="picker" style='color:blue' bindtap="changeRoot">
+    修改root管理员密码
+  </view>
 <view class="table">
   <view class='th tr'>
     <view class='tt'>姓名</view>
@@ -18,4 +21,10 @@
     </view>
   </modal>
 </view>
+<modal hidden="{{changeRootHidden}}" title="修改密码" confirmText="确认" cancelText="取消"  bindconfirm="changePwdConfirm" bindcancel="changePwdCancel">
+    <view>
+      <input bindblur="pwdInput0" password="true" style="width:100%;padding:5rpx 0;" type='text' placeholder="请输入密码" auto - focus />
+      <input bindblur="pwdInput1" password="true" style="width:100%;padding:5rpx 0;" type='text' placeholder="再次输入密码" />
+    </view>
+  </modal>
 </scroll-view>

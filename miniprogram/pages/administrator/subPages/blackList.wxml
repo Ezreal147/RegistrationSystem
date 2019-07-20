@@ -1,0 +1,14 @@
+<scroll-view scroll-y="true" style="height:100%">
+<view class="table">
+  <view class='th tr'>
+    <view class='tt'>姓名</view>
+    <view class='tt'>手机号</view>
+  </view>
+
+<view class='tr' wx:key="" wx:for="{{blackList}}" bindlongpress='deleteBlack' data-index="{{index}}" data-phone="{{item.phone}}">
+<view class='tt'>{{item.name}}</view>
+<view class='tt'>{{item.phone}}</view>
+</view>
+
+</view>
+</scroll-view>

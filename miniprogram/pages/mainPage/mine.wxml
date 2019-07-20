@@ -17,6 +17,13 @@
 </view>
 <view class="mine_line"></view>
 <view class='item'>
+  <view class="title">历史预约总次数</view>
+  <view class="detail2">
+    <text>{{total}}</text>
+  </view>
+</view>
+<view class="mine_line"></view>
+<view class='item'>
   <view class="title">剩余可预约次数</view>
   <view class="detail2">
     <text>{{bookedNumber}}</text>
@@ -55,7 +62,7 @@
 <view style="width:100%;height:100%">
   <scroll-view scroll-y="true" style="height:40%;margin-top:10rpx">
       <view class="aa" wx:for="{{userful}}" wx:key="">
-        <view class="orderDetail" bindlongpress="deleteOrder" data-name="{{item.name}}" data-date="{{item.date}}" data-time="{{item.time}}">
+        <view class="orderDetail" bindtap="showBedInfo" bindlongpress="deleteOrder" data-name="{{item.name}}" data-date="{{item.date}}" data-time="{{item.time}}" data-index="{{index}}">
           <view class="order-item">{{item.name}}</view>
           <view class="order-item">{{item.date}}</view>
           <view class="order-item">{{item.time}}</view>

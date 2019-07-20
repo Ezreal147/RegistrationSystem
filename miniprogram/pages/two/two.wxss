@@ -72,5 +72,5 @@
 .head_pic{
   width: 100%;
   height: 270rpx;
-  padding: 5rpx;
+  padding: 5rpx 0;
 }

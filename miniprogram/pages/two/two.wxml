@@ -1,7 +1,7 @@
 <!--miniprogram/pages/two/two.wxml-->
 <page>
 <view class="head">
-<image class="head_pic" src='/images/top_img.png'></image>
+<image class="head_pic" src='/images/order.jpg'></image>
 </view>
 
 
@@ -38,6 +38,9 @@
 <view class="tips" style="margin-top:750rpx;right:20rpx">{{error}}</view>
 <view class="tips" style="bottom:150rpx;margin-left: 20rpx;">请仔细检查就诊信息是否正确！</view>
 <view class="down">
-<button class="surebtn" bindtap="onSure">确定预约</button>
+<form  report-submit="true" bindsubmit="submit">
+<button form-type="submit" class="surebtn" bindtap="onSure">确定预约</button>
+</form>
+
 </view>
 </page>
