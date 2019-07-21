@@ -20,6 +20,11 @@ Page({
     var focus=false
     var tele_number=wx.getStorageSync("tele_number")
     var name=wx.getStorageSync("name")
+    if(name=='root'){
+      this.setData({
+        isroot:true
+      })
+    }
     if(tele_number==""){
       focus=true
     }

@@ -86,6 +86,44 @@ Page({
     ],
     blackList:null,
   },
+  exportExcel:function(){
+    wx.showLoading({
+      title: '生成链接中',
+    })
+    wx.cloud.callFunction({
+      name:"export",
+      data:{
+
+      },
+      success:res=>{
+        var fileID=res.result.fileID
+        wx.cloud.getTempFileURL({
+          fileList:[fileID],
+          success:res=>{
+            wx.hideLoading()
+            var tempFilePath=res.fileList[0].tempFileURL
+            wx.showModal({
+              title: '导出EXCEL',
+              content: "按确定复制链接"+tempFilePath,
+              showCancel:false,
+              success:res=>{
+                if(res.confirm){
+                  wx.setClipboardData({
+                    data: tempFilePath,
+                    success:res=>{
+                      wx.showToast({
+                        title: '复制成功',
+                      })
+                    }
+                  })
+                }
+              }
+            })
+          }
+        })
+      }
+    })
+  },
   changeRoot:function(e){
     this.setData({
       changeRootHidden:false

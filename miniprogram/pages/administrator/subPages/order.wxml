@@ -3,6 +3,9 @@
     查询日期:{{searchDate}}
   </view>
 </picker>
+  <view bindtap="exportExcel" class="picker" style='color:blue'>
+    导出
+  </view>
   <view class='th tr'>
     <view class='td'>姓名</view>
     <view class='td'>手机号</view>
