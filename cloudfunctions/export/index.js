@@ -6,19 +6,13 @@ cloud.init()
 const db=cloud.database()
 // 云函数入口函数
 exports.main = async (event, context) => {
-  // await cloud.deleteFile({
-  //   fileList:process.env.fileList
-  // })
   var allOrder=await db.collection("orderInfo").get()
   var today = new Date()
   today = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + (today.getDate())
-
-  if(process.env.date!=today){
     await cloud.deleteFile({
-      fileList:process.env.fileList
+      fileList: [process.env.fileIdList]
     })
-    process.env.date=today
-  }
+    
   var orderToday = new Array()
   var timeList = new Array()
   allOrder = allOrder.data
@@ -81,6 +75,6 @@ exports.main = async (event, context) => {
     cloudPath: path.join(filePath, fileName),
     fileContent: new Buffer(excelResult, 'binary')
   });
-  process.env.fileList.push(res.fileID)
+  process.env.fileIdList=res.fileID
   return res
 }
