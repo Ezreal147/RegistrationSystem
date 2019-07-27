@@ -4,8 +4,8 @@
     <view class="pre_item">1.本程序仅提供脐疗预约服务。</view>
     <view class="pre_item">2.请每次购买次数后，在本程序内申请记录。</view>
     <view class="pre_item">3.本程序预约提前一周开始放号，就诊日前一天晚上24点停止。</view>
-    <view class="pre_item">4.预约成功后，请在选择的就诊时间提前20分钟现场确认。</view>
-    <view class="pre_item">5.可在就诊前1天取消或修改预约时间。如未取消预约，就诊当日未到者，脐疗次数正常扣除，需到现场恢复，如违约次数达两次，则不可再使用本程序，需现场恢复。</view>
+    <view class="pre_item">4.预约成功后，请按照就诊时间和地点，提前10分钟到场。</view>
+    <view class="pre_item">5.预约后如需取消，可在就诊前1天取消预约，并重新预约，如未取消预约，且治疗当日未到的，则视为违约，违约账户将被封禁，不可线上预约，需现场排号和解除封禁</view>
     <checkbox-group id='check_group'>
       <label class="checkbox">
         <checkbox-group bindchange="onChange">

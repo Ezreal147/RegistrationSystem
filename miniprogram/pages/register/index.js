@@ -73,6 +73,7 @@ Page({
             name:this.data.name,
             phoneNumber:this.data.phone,
             black:false,
+            total:0,
             relatives:[{name:this.data.name,relation:"me"}]
           }
         })

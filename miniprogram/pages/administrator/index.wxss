@@ -70,6 +70,7 @@ color: #b4801e;
   width: 150rpx;
   color: white;
   text-align: center;
+  line-height: 90rpx;
   height: 90rpx;
   background-color: #30e4c6;
   margin-right: 10%;

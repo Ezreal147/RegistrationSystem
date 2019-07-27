@@ -26,6 +26,9 @@
       <swiper-item>
        <include src="subPages/blackList.wxml"/>
       </swiper-item>
+      <swiper-item>
+       <include src="subPages/stop.wxml"/>
+      </swiper-item>
     </swiper>
   </view>
 </view>

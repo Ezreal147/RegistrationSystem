@@ -12,7 +12,6 @@ exports.main = async (event, context) => {
     await cloud.deleteFile({
       fileList: [process.env.fileIdList]
     })
-    
   var orderToday = new Array()
   var timeList = new Array()
   allOrder = allOrder.data
@@ -44,7 +43,7 @@ exports.main = async (event, context) => {
     var tableHead = ["姓名", "电话", "就诊地点"];
     var tableMap = {
       styleXmlFile: path.join(__dirname, "styles.xml"),
-      name: timeList[i] + "-export",
+      name: today +'-'+ timeList[i] + "-export",
       cols: [],
       rows: [],
     }
@@ -69,7 +68,7 @@ exports.main = async (event, context) => {
   //保存excelResult到相应位置
   
   var filePath = "outputExcels";
-  var fileName = today +  '-output.xlsx';
+  var fileName = 'output.xlsx';
   //上传文件到云端
   var res=await cloud.uploadFile({
     cloudPath: path.join(filePath, fileName),

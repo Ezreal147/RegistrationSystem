@@ -5,7 +5,6 @@ cloud.init()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  console.log(event)
   const result = await cloud.openapi.templateMessage.send({
     touser: event.userInfo.openId,
     data: {
@@ -22,9 +21,8 @@ exports.main = async (event, context) => {
         value: event.place
       },
     },
-    templateId: 'M5fZ2HDEp8Ut92p27vwqFjJbH0dBAbUEsty0zhWfJ4M',
+    templateId: 'ivLb_XngZw3qKcTtiOSHqBiNXs6vHSl3px1OTiydy4s',
     formId: event.formID,
   })
-  console.log(result)
   return result
 }

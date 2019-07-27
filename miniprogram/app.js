@@ -7,12 +7,14 @@ App({
     } else {
       wx.cloud.init({
         // 此处请填入环境 ID, 环境 ID 可打开云控制台查看
-        env: 'registration-76g58',
+        env: 'registration-qz2dw',
         traceUser: true,
       })
     }
 
     this.globalData = {
+      form:null,
+      openId:null,
       hasLogin: false,
       datelist:null,
       timelist:null,

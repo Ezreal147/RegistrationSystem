@@ -34,7 +34,9 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-
+  submit:function(e){
+    console.log(e.detail.formId)
+  },
   onLoad: function (options) {
     this.setData({
       username: options.name,
@@ -69,6 +71,9 @@ Page({
       phone:this.data.phonenumber
     }).get()
     .then(res=>{
+      if(res.data.length==0){
+        return
+      }
       var detail=res.data[0].detail
       var userful=new Array()
       var now=new Date()

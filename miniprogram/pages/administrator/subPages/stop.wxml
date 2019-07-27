@@ -1,0 +1,18 @@
+<view>
+<text class='sub_head'>输入用于咨询的手机号</text>
+<input style="width:80%;margin-left:10%" value="{{zixun}}" bindblur="bindzixun"></input>
+  <text class='sub_head'>选择停诊日期</text>
+  <picker mode="date" value="{{stopDate}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindStopDateTab">
+    <view class="picker" style='color:blue'>
+      当前选择:{{stopDate}}
+    </view>
+  </picker>
+  <text class='sub_head'>选择停诊时间</text>
+  <picker bindchange="bindStopTimeTab" value="0" range="{{showStopTime}}">
+  <view class="picker" style='color:blue'>
+      当前选择:{{stopTime}}
+    </view>
+  </picker>
+  
+</view>
+<button id='assure' bindtap="stopTheDay">确定</button>

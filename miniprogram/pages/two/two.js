@@ -1,4 +1,5 @@
 // miniprogram/pages/two/two.js
+const app=getApp()
 wx.cloud.init()
 const db = wx.cloud.database()
 const _ = db.command
@@ -8,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    canClick:true,
     formID:"",
     userDBId:null,
     available: null,
@@ -29,6 +31,7 @@ Page({
     this.setData({
       formID:e.detail.formId
     })
+    this.onSure()
   },
   onLoad: function(options) {
     if(options.black=="true"){
@@ -135,9 +138,15 @@ Page({
   },
 
   onSure: function() {
-
     wx.showLoading({
       title: '预约中',
+      mask:true
+    })
+    if(!this.data.canClick){
+      return
+    }
+    this.setData({
+      canClick:false
     })
     if (Number(this.data.available) == 0) {
       wx.hideLoading()
@@ -162,12 +171,12 @@ Page({
       return
     }
     var query_id = null
-    var that = this
     db.collection("orderInfo").where({
         phone: this.data.phoneNumber
       }).get()
       .then(res => {
         if(res.data.length==0){
+          var that=this
           db.collection("orderInfo").add({
             data:{
               phone:this.data.phoneNumber,
@@ -175,37 +184,57 @@ Page({
                 date:this.data.strdate,
                 name:this.data.patient,
                 time:this.data.clinicTime,
-                place:""
+                place:"",
+                formID:app.globalData.form,
+                openId:app.globalData.openId
               }]
             }
           }).then(res=>{
             wx.hideLoading()
             if (res.errMsg == "collection.add:ok"){
-              wx.showToast({
-                title: '预约成功',
-                duration:2000,
-                complete: function () {
-                  var time=this.data.clinicTime
-                  setTimeout(function(){
-                    console.log(that.data.formID)
-                    wx.cloud.callFunction({
-                      name: "sendMsg",
-                      data: {
-                        formID: that.data.formID,
-                        phone: that.data.phoneNumber,
-                        name: that.data.patient,
-                        time: that.data.clinicDate + " " + that.data.clinicTime,
-                        place: that.data.clinicPlace,
+              db.collection("userInfo").doc(this.data.userDBId).update({
+                data: {
+                  available: _.inc(-1),
+                  total: _.inc(1)
+                }
+              }).then(res=>{
+                wx.cloud.callFunction({
+                  name: "bedsDec",
+                  data: {
+                    date: this.data.strdate,
+                    time: Number(this.data.opt),
+                    operate: "dec"
+                  },
+                  success: res => {
+                    wx.showToast({
+                      title: '预约成功',
+                      duration: 2000,
+                      complete: function () {
+                        var time = that.data.clinicTime
+                        setTimeout(function () {
+                          wx.cloud.callFunction({
+                            name: "sendMsg",
+                            data: {
+                              formID: that.data.formID,
+                              phone: that.data.phoneNumber,
+                              name: that.data.patient,
+                              time: that.data.clinicDate + " " + that.data.clinicTime,
+                              place: that.data.clinicPlace,
+                            }
+                          })
+                          wx.navigateBack({
+                            delta: 1,
+                          })
+                        }, 2000)
+
+
                       }
                     })
-                    wx.navigateBack({
-                      delta: 1,
-                    })
-                  },2000)
-
-                  
-                }
+                  }
+                })
               })
+
+              
               
             }else{
               wx.showToast({
@@ -238,7 +267,9 @@ Page({
                   date: this.data.strdate,
                   name: this.data.patient,
                   time: this.data.clinicTime,
-                  place:""
+                  place:"",
+                  formID:app.globalData.form,
+                  openId: app.globalData.openId
                 })
               }
             }).then(res=>{
@@ -267,7 +298,6 @@ Page({
                           complete: function () {
                             
                             setTimeout(function () {
-                              console.log(that.data.formID)
                               wx.cloud.callFunction({
                                 name: "sendMsg",
                                 data: {
@@ -325,6 +355,9 @@ Page({
           duration:2500
         })
       })
+    this.setData({
+      canClick: true
+    })
   },
   onpatientInput: function(e) {
     this.setData({

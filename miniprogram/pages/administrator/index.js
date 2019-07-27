@@ -2,7 +2,10 @@ const mydate = new Date()
 const db=wx.cloud.database()
 Page({
   data: {
+    zixun:"",
+    stopOpt:null,
     pwd0:"",
+    showStopTime:null,
     pwd1:"",
     changeRootHidden:true,
     searchUserInfo:null,
@@ -14,6 +17,8 @@ Page({
     allOrder:null,
     orderData:null,
     searchDate: (mydate.getFullYear() + "-" + (mydate.getMonth() + 1) + "-" + mydate.getDate()),
+    stopDate: (mydate.getFullYear() + "-" + (mydate.getMonth() + 1) + "-" + mydate.getDate()),
+    stopTime:null,
     startDate: mydate,
     isroot:false,
     allAplly:null,
@@ -68,6 +73,10 @@ Page({
       {
         cate_id:5,
         cate_name:"黑名单列表"
+      },
+      {
+        cate_id:6,
+        cate_name:"临时停诊"
       }
     ],
     application_users:null,
@@ -653,6 +662,32 @@ Page({
     this.refreshAdmin()
     this.refreshOrderData()
     this.refreshRoom()
+    this.refreshStopTime()
+  },
+  refreshStopTime(){
+    var res=db.collection("twoWeeks").where({
+      date: this.data.selectedDate
+    }).get().then(res=>{
+      if(res.data.isChange==true){
+        this.setData({
+          showStopTime:res.data[0].clinicTime,
+          stopTime: res.data[0].clinicTime[0]
+        })
+      }else{
+        db.collection("defaultSetting").where({
+          type:"clinicTime"
+        }).get().then(res=>{
+          this.setData({
+            showStopTime: res.data[0].clinicTime,
+            stopTime: res.data[0].clinicTime[0]
+          })
+        })
+      }
+    })
+    var tm=wx.getStorageSync("zixun")
+    this.setData({
+      zixun:tm
+    })
   },
   refreshAdmin:function(){
     wx.cloud.callFunction({
@@ -718,6 +753,60 @@ Page({
           icon:"none",
           duration:2000,
         })
+      }
+    })
+  },
+  bindStopTimeTab:function(e){
+    this.setData({
+      stopTime: this.data.showStopTime[Number(e.detail.value)],
+      stopOpt: e.detail.value
+    })
+  },
+  bindzixun:function(e){
+    this.setData({
+      zixun:e.detail.value
+    })
+  },
+  bindStopDateTab:function(e){
+    var dateList = e.detail.value.split("-")
+    this.setData({
+      stopDate: Number(dateList[0]) + "-" + Number(dateList[1]) + "-" + Number(dateList[2])
+    })
+    this.refreshStopTime()
+  },
+  stopTheDay:function(){
+    if(this.data.zixun==""){
+      wx.showToast({
+        title: '请输入手机号',
+        icon:"none"
+      })
+      return
+    }
+    wx.setStorageSync("zixun", this.data.zixun)
+    wx.showModal({
+      title: '确认停诊',
+      content: '该操作会使选中时段无法预约，清空该时段的预约信息并通知患者，请谨慎操作',
+      success:res=>{
+        if(res.confirm){
+          wx.showLoading({
+            title: '请稍等',
+          })
+          wx.cloud.callFunction({
+            name:"stopTheDay",
+            data:{
+              date:this.data.stopDate,
+              time:this.data.stopTime,
+              opt:this.data.stopOpt,
+              zixun:this.data.zixun
+            },
+            success:res=>{
+              wx.hideLoading()
+              wx.showToast({
+                title: '成功',
+              })
+            }
+          })
+        }
       }
     })
   },

@@ -10,7 +10,13 @@ Page({
     isSave:true,
     tips:"",
   },
+  submit:function(e){
+    app.globalData.form=e.detail.formId
+    console.log(app.globalData.form)
+    this.enter()
+  },
   onLoad:function(e){
+    
     var hasRead = wx.getStorageSync("hasRead")
     if(!hasRead){
       wx.redirectTo({
@@ -136,7 +142,13 @@ Page({
      
      wx.setStorageSync("tele_number", this.data.tele_number)
      wx.setStorageSync("name", this.data.name)
-     
+     wx.cloud.callFunction({
+       name:"getOpenId",
+       data:{},
+       success:res=>{
+         app.globalData.openId = res.result.openid
+       }
+     })
      if (res.data[0].isAdmin == true) {
        wx.hideLoading()
        wx.navigateTo({
